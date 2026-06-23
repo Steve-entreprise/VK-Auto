@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VK Auto — Excellence Automobile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:       #0A0A0A;
+      --black-soft:  #111111;
+      --dark:        #1A1A1A;
+      --dark-mid:    #242424;
+      --gold:        #F5C518;
+      --gold-bright: #FFD700;
+      --gold-dim:    #C9A000;
+      --white:       #F0F0F0;
+      --grey:        #888888;
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-body:    'Montserrat', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(245,197,24,0.15);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+    }
+    .nav-logo span { color: var(--white); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--white);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      padding: 10px 22px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    }
+    .nav-cta:hover { background: var(--gold-bright); transform: translateY(-1px); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 72px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: 
+        linear-gradient(135deg, rgba(10,10,10,0.97) 45%, rgba(245,197,24,0.08) 100%),
+        repeating-linear-gradient(
+          -55deg,
+          transparent,
+          transparent 38px,
+          rgba(245,197,24,0.03) 38px,
+          rgba(245,197,24,0.03) 40px
+        );
+    }
+    .hero-stripe {
+      position: absolute;
+      right: -60px;
+      top: 0; bottom: 0;
+      width: 520px;
+      background: linear-gradient(180deg, var(--gold) 0%, var(--gold-dim) 100%);
+      clip-path: polygon(120px 0%, 100% 0%, 100% 100%, 0% 100%);
+      opacity: 0.08;
+    }
+    .hero-stripe-line {
+      position: absolute;
+      right: 310px;
+      top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, transparent, var(--gold), transparent);
+      opacity: 0.4;
+    }
+    .hero-content {
+      position: relative;
+      padding: 0 5%;
+      max-width: 900px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: var(--gold);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(4.5rem, 10vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.8rem;
+    }
+    .hero-title .line-gold { color: var(--gold); }
+    .hero-sub {
+      font-size: 1rem;
+      font-weight: 300;
+      color: #aaa;
+      max-width: 500px;
+      line-height: 1.7;
+      margin-bottom: 2.8rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 16px 38px;
+      background: var(--gold);
+      color: var(--black);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--gold-bright);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(245,197,24,0.3);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .btn-ghost::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+    .btn-ghost:hover { color: var(--gold); }
+    .btn-ghost:hover::after { transform: translateX(4px); }
+
+    .hero-stats {
+      position: absolute;
+      bottom: 3rem;
+      right: 5%;
+      display: flex;
+      gap: 3rem;
+    }
+    .stat { text-align: right; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 4px;
+    }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 100px 5%; }
+    .section-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .section-eyebrow::before {
+      content: '';
+      display: block;
+      width: 30px; height: 1px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .section-title .gold { color: var(--gold); }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--black-soft); }
+    .services-intro {
+      max-width: 760px;
+      margin-bottom: 5rem;
+    }
+    .services-intro p {
+      font-size: 0.95rem;
+      color: #999;
+      line-height: 1.8;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(245,197,24,0.1);
+    }
+    .service-card {
+      background: var(--dark);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .service-card:hover { background: var(--dark-mid); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .service-num {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-family: var(--font-display);
+      font-size: 4.5rem;
+      color: rgba(245,197,24,0.06);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .service-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+      color: var(--white);
+    }
+    .service-desc {
+      font-size: 0.85rem;
+      color: #888;
+      line-height: 1.7;
+    }
+    .service-list {
+      margin-top: 1.5rem;
+      list-style: none;
+    }
+    .service-list li {
+      font-size: 0.8rem;
+      color: #777;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .service-list li::before {
+      content: '';
+      display: block;
+      width: 16px; height: 1px;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ─── BARDAHL ─── */
+    #bardahl {
+      background: var(--black);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .bardahl-visual {
+      background: var(--gold);
+      position: relative;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .bardahl-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 20px,
+        rgba(0,0,0,0.04) 20px,
+        rgba(0,0,0,0.04) 22px
+      );
+    }
+    .bardahl-badge {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .bardahl-logo-text {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--black);
+      letter-spacing: 0.1em;
+      line-height: 1;
+      display: block;
+    }
+    .bardahl-sub-text {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.5);
+      margin-top: 0.5rem;
+      display: block;
+    }
+    .collab-ribbon {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(0,0,0,0.15);
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(0,0,0,0.6);
+    }
+    .bardahl-content {
+      padding: 6rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .bardahl-content p {
+      font-size: 0.9rem;
+      color: #999;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .product-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2rem;
+    }
+    .chip {
+      padding: 8px 18px;
+      border: 1px solid rgba(245,197,24,0.3);
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      transition: background 0.2s, color 0.2s;
+    }
+    .chip:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ─── WHY VK ─── */
+    #why {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #why::before {
+      content: 'VK';
+      position: absolute;
+      right: 3%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: 20vw;
+      color: rgba(245,197,24,0.03);
+      pointer-events: none;
+      line-height: 1;
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin-top: 4rem;
+      background: rgba(255,255,255,0.04);
+    }
+    .why-item {
+      background: var(--dark);
+      padding: 2.5rem;
+      display: flex;
+      gap: 1.5rem;
+      transition: background 0.3s;
+    }
+    .why-item:hover { background: #1f1f1f; }
+    .why-icon {
+      width: 48px; height: 48px;
+      background: rgba(245,197,24,0.1);
+      border: 1px solid rgba(245,197,24,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .why-item h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .why-item p {
+      font-size: 0.82rem;
+      color: #888;
+      line-height: 1.65;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact {
+      background: var(--black-soft);
+      text-align: center;
+    }
+    .contact-inner { max-width: 700px; margin: 0 auto; }
+    .contact-inner p {
+      font-size: 0.95rem;
+      color: #888;
+      line-height: 1.8;
+      margin: 1.5rem 0 3rem;
+    }
+    .contact-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(245,197,24,0.1);
+      margin-bottom: 3rem;
+      text-align: left;
+    }
+    .contact-card {
+      background: var(--dark);
+      padding: 2rem 1.8rem;
+    }
+    .contact-card-label {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .contact-card-label::before {
+      content: '';
+      display: block;
+      width: 20px; height: 1px;
+      background: var(--gold);
+    }
+    .contact-card-val {
+      font-size: 0.9rem;
+      color: var(--white);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    .btn-outline {
+      display: inline-block;
+      padding: 16px 44px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(245,197,24,0.12);
+      padding: 2.5rem 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+    }
+    .footer-logo span { color: rgba(255,255,255,0.4); }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: #555;
+      letter-spacing: 0.08em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.72rem;
+      color: #555;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    /* ─── DIVIDER ─── */
+    .gold-divider {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0;
+      opacity: 0.3;
+    }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+      #bardahl { grid-template-columns: 1fr; }
+      .bardahl-visual { min-height: 280px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .contact-cards { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-stats { display: none; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 70px 5%; }
+      .bardahl-content { padding: 3rem 2rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="nav-logo">VK<span>&nbsp;AUTO</span></div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#bardahl">Bardahl</a></li>
+      <li><a href="#why">Pourquoi nous</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Prendre RDV</a>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-stripe"></div>
+    <div class="hero-stripe-line"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow reveal">Partenaire Officiel Bardahl — Nord Cameroun</div>
+      <h1 class="hero-title reveal">
+        L'EXCELLENCE<br>
+        <span class="line-gold">AUTOMOBILE</span><br>
+        AU NORD
+      </h1>
+      <p class="hero-sub reveal">
+        VK Auto — votre spécialiste en laverie, vidange et produits automobiles de haute gamme. 
+        Une expérience premium à chaque passage.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#services" class="btn-primary">Nos Services</a>
+        <a href="#contact" class="btn-ghost">Nous trouver</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat reveal">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Produits Certifiés</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat-num">Bardahl</div>
+        <div class="stat-label">Partenaire Officiel</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat-num">Pro</div>
+        <div class="stat-label">Équipe Qualifiée</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ─── SERVICES ─── -->
+  <section id="services">
+    <div class="services-intro">
+      <div class="section-eyebrow reveal">Ce que nous faisons</div>
+      <h2 class="section-title reveal">NOS <span class="gold">SERVICES</span></h2>
+      <p class="reveal">
+        Chez VK Auto, chaque intervention est réalisée avec le plus grand soin, 
+        par des techniciens qualifiés et avec des produits de première qualité. 
+        Votre véhicule mérite le meilleur.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-num">01</span>
+        <span class="service-icon">🚿</span>
+        <h3 class="service-title">LAVERIE AUTO</h3>
+        <p class="service-desc">Un nettoyage professionnel qui redonne à votre véhicule tout son éclat. Intérieur comme extérieur.</p>
+        <ul class="service-list">
+          <li>Lavage carrosserie haute pression</li>
+          <li>Nettoyage intérieur complet</li>
+          <li>Lustrage et brillance</li>
+          <li>Traitement des jantes et pneus</li>
+          <li>Désodorisation cabine</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">02</span>
+        <span class="service-icon">🔧</span>
+        <h3 class="service-title">VIDANGE</h3>
+        <p class="service-desc">Vidange moteur réalisée avec des huiles Bardahl certifiées pour une performance et une longévité optimales.</p>
+        <ul class="service-list">
+          <li>Vidange huile moteur</li>
+          <li>Remplacement filtre à huile</li>
+          <li>Contrôle niveaux complet</li>
+          <li>Huiles Bardahl homologuées</li>
+          <li>Rapport d'intervention fourni</li>
+        </ul>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-num">03</span>
+        <span class="service-icon">🛒</span>
+        <h3 class="service-title">BOUTIQUE BARDAHL</h3>
+        <p class="service-desc">Revendeur officiel Bardahl — accédez à la gamme complète de produits pour l'entretien de votre véhicule.</p>
+        <ul class="service-list">
+          <li>Huiles moteur toutes gammes</li>
+          <li>Additifs et traitements</li>
+          <li>Produits de nettoyage auto</li>
+          <li>Lubrifiants spéciaux</li>
+          <li>Accessoires d'entretien</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ─── BARDAHL PARTNERSHIP ─── -->
+  <section id="bardahl" style="padding:0;">
+    <div class="bardahl-visual">
+      <div class="bardahl-badge">
+        <span class="bardahl-logo-text">BARDAHL</span>
+        <span class="bardahl-sub-text">Revendeur Officiel</span>
+      </div>
+      <div class="collab-ribbon">✦ Partenariat Officiel · VK Auto × Bardahl ✦</div>
+    </div>
+    <div class="bardahl-content">
+      <div class="section-eyebrow reveal">Partenariat Stratégique</div>
+      <h2 class="section-title reveal">EN <span class="gold">COLLABORATION</span><br>AVEC BARDAHL</h2>
+      <p class="reveal">
+        VK Auto est fier d'être un distributeur et partenaire officiel de <strong style="color:var(--gold)">Bardahl</strong>, 
+        marque de référence mondiale en lubrifiants et produits automobiles. 
+        Un gage de qualité et de fiabilité pour votre moteur.
+      </p>
+      <p class="reveal">
+        Fondée en 1939 à Seattle, Bardahl est aujourd'hui présente dans plus de 80 pays. 
+        Choisir VK Auto, c'est bénéficier d'une expertise certifiée 
+        et de produits authentiques livrés directement.
+      </p>
+      <div class="product-chips reveal">
+        <span class="chip">Huiles Moteur</span>
+        <span class="chip">Additifs</span>
+        <span class="chip">Nettoyants Injecteurs</span>
+        <span class="chip">Transmission</span>
+        <span class="chip">Freinage</span>
+        <span class="chip">Refroidissement</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ─── WHY VK ─── -->
+  <section id="why">
+    <div class="section-eyebrow reveal">Notre différence</div>
+    <h2 class="section-title reveal">POURQUOI CHOISIR <span class="gold">VK AUTO ?</span></h2>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <div class="why-icon">⭐</div>
+        <div>
+          <h3>Qualité Premium</h3>
+          <p>Chaque service est réalisé avec les meilleurs équipements et produits certifiés. Nous ne faisons aucun compromis sur la qualité.</p>
+        </div>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-icon">🏆</div>
+        <div>
+          <h3>Expertise Reconnue</h3>
+          <p>Une équipe de techniciens spécialisés, formés aux dernières techniques du marché automobile pour un résultat impeccable.</p>
+        </div>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-icon">🤝</div>
+        <div>
+          <h3>Partenaire Officiel</h3>
+          <p>En tant que revendeur officiel Bardahl, nous vous garantissons l'authenticité absolue de tous nos produits de traitement.</p>
+        </div>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-icon">✦</div>
+        <div>
+          <h3>Service Luxueux</h3>
+          <p>Une expérience client haut de gamme dès votre arrivée. Chez VK Auto, vous êtes accueilli dans un cadre digne des plus grandes enseignes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="gold-divider"></div>
+
+  <!-- ─── CONTACT ─── -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-eyebrow reveal" style="justify-content:center;">Où nous trouver</div>
+      <h2 class="section-title reveal">VENEZ NOUS <span class="gold">RENDRE VISITE</span></h2>
+      <p class="reveal">
+        VK Auto est installé dans le Nord du Cameroun. Notre équipe est disponible pour 
+        vous accueillir et prendre soin de votre véhicule dans les meilleures conditions.
+      </p>
+      <div class="contact-cards">
+        <div class="contact-card reveal">
+          <div class="contact-card-label">Localisation</div>
+          <div class="contact-card-val">Nord Cameroun<br>Zone Automobile</div>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-card-label">Horaires</div>
+          <div class="contact-card-val">Lun – Sam<br>07h00 – 19h00</div>
+        </div>
+        <div class="contact-card reveal">
+          <div class="contact-card-label">Contact</div>
+          <div class="contact-card-val">Appelez-nous<br>pour un rendez-vous</div>
+        </div>
+      </div>
+      <a href="tel:" class="btn-outline reveal">Prendre Rendez-Vous</a>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-logo">VK<span>&nbsp;AUTO</span></div>
+    <p class="footer-copy">© 2025 VK Auto — Tous droits réservés. Partenaire Officiel Bardahl.</p>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#bardahl">Bardahl</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(el => observer.observe(el));
+
+    // Nav scroll effect
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.style.background = 'rgba(10,10,10,0.98)';
+      } else {
+        nav.style.background = 'rgba(10,10,10,0.92)';
+      }
+    });
+  </script>
+
+</body>
+</html>
